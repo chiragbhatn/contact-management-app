@@ -1,0 +1,81 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <p class="h3">
+                contact application
+                <a class="btn btn-success btn-sm" href="/contacts/add"><i></i>Add new</a>
+            </p>
+            <p class="fst-italic mt-1">Chirag's contacts can be searched below.👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻</p>
+            <form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="search contact">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="Submit" class="btn btn-outline-dark" value="search">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- loading -->
+<div *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>
+
+<div *ngIf="!loading && errorMessage">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="h4 text-danger fw-bold">{{errorMessage}}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- <pre>{{contacts | json}}</pre> -->
+<div class="container mt-4" *ngIf="!loading && contacts.length>0">
+    <div class="row">
+        <div class="col-md-6" *ngFor="let contact of contacts">
+            <div class="card list-group-item-success shadow-lg my-2">
+                <div class="card-body">
+                    <div class="row align-item-center">
+                        <div class="col-sm-4">
+                            <img [src]="contact.photo" alt="user" class="contact-img">
+                        </div>
+                        <div class="col-md-7">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    Name:<span class="fw-bold">
+                                        {{contact.name}}
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    Email:<span class="fw-bold">
+                                        {{contact.email}}
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    Phone Number:<span class="fw-bold"> {{contact.mobile}}</span>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col-sm-1 d-flex flex-column justify-content-center align-items-center">
+                            <a routerLink="/contacts/view/{{contact.id}}" class=" btn btn-warning"><i
+                                    class="fa fa-eye"></i></a>
+                            <a routerLink="/contacts/edit/{{contact.id}}" class="btn btn-success"><i
+                                    class="fa fa-pen"></i></a>
+                            <button class="btn btn-danger" (click)="deleteContact(contact.id)"><i
+                                    class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
